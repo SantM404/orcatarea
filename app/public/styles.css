@@ -1,0 +1,43 @@
+/* Estilos básicos para la aplicación */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+header {
+    text-align: center;
+    background-color: #ffcccc;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+}

@@ -1,0 +1,36 @@
+services:
+  web:
+    build:
+      context: ./app # en esta línea se sub carpeta o carpeta del proyecto llamada app como el lugar donde se construirá el contenedor web
+    restart: always #esto configura que si en dado caso llega a fallar o se cae dicho servicio se reinicieautomáticamente, ese paso se repite en los otros dos servicios y básicamente realiza la misma tarea 
+    ports:
+      - "8000:8000"  #habilita o nos dice que le puerto 8000 es por el cual nosotros vamos a poder acceder a la aplicación desde nuestro host local
+    volumes:
+      - ./app:/usr/src/app  # configura dicha carptea, que se usó como punto de referencia para construir el contenedor, como lugar donde se alojará la imagen
+    working_dir: /usr/src/app #este es el directorio de trabajo dentro de nuestro contenedor
+    command: "node index.js" #nos muestra el comando o el archivo donde se iniciará nuestra aplicación en el contenedor
+
+  mysql:
+    build:
+      context: ./mysql #básicamente realiza lo mismo que en el serivicio anterior especificando en este caso las carpeta mysql como punto de referencia para construir el contenedor mysql 
+    restart: always #de igual forma se configura para que se reinicie en caso de fallos
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword #todo el código anterior son las configuraciones de las variables de entorno para poder usar el servicio mysql definiendo desde contrasñas hasta el nombre de nuestra base de datos que se crea cuando se inicia mysql
+    ports:
+      - "3306:3306" #en este caso se habilita el puerto 3306 para el servicio de mysql para qiue nuestra aplicación pueda tener acceso a los servicios que mysql ofrece
+    volumes:
+      - mysql_data:/var/lib/mysql #esto es un volumen, mismo donde se alojarán los datos que se ingresenen mysql para que sean persistentes
+      
+
+  redis:
+    build:
+      context: ./redis #se eespecifica la carpeta redis para la creación del ocntenedor que implementa el servicio de redis
+    restart: always
+    ports:
+      - "6379:6379" #puerto por el cual se comunicará el servicio con el resto de la aplicación
+
+volumes:
+  mysql_data: #en esta línea nos muestra el volumen llamado mysql_data oara que almacene los datos mysql de forma persistente
